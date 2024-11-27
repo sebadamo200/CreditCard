@@ -116,7 +116,7 @@ export default function Index() {
                   onChangeText={(text) => setselectedCardNumber(text)} // Update state when text changes
                   value={selectedCardNumber}
                   keyboardType="numeric" 
-                  maxLength={16}
+                  maxLength = {getTypeCard(selectedCardNumber) === "amex" ? 15 : 16} // !!FIXED!!
                 />
               </View>
               <View style = {styles.inputVieuwCard}>
@@ -128,6 +128,7 @@ export default function Index() {
 
                     onChangeText={(text) => setselectedCardHolder(text)}
                     value={selectedCardHolder}
+                    maxLength={20} // !!FIXED!!
                     />
               </View>
               <View style = {{flexDirection: 'row', alignItems : 'flex-end'}}>

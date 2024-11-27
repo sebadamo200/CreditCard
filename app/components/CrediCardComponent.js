@@ -13,19 +13,20 @@ import {
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 
-// UTILS //
+// UTILS //  !!FIXED!!
 const renderCardNumberWithSpaces = (text) => {
   const cardArray = [];
-  for (let index = 0; index < 16; index++) {
-    if (text[index]) {
-      cardArray.push(text[index]);
-    } else {
-      cardArray.push('#');
-    }
-    if (index % 4 === 3 && index !== 15) {
-      cardArray.push(' ');
+  let amexExp = false;
+  if (text[0] === '3'  && (text[1] === '4' || text[1] === '7')) {
+    amexExp = true;
+  }
+  for (let index = 0; index < (amexExp ? 15 : 16); index++) {    
+    cardArray.push(text[index] || '#');
+    if ((amexExp && (index === 3 || index === 9)) || (!amexExp && index % 4 === 3 && index < 15)) {
+      cardArray.push('');
     }
   }
+
   return cardArray;
 };
 
@@ -67,21 +68,21 @@ const CreditCardComponent = ({ MonthExpire, yearExpire, textCardNumber, textCard
         animations.push(
           Animated.timing(animationRefs[index], {
             toValue: 0,
-            duration: 200,
+            duration: 100,
             useNativeDriver: true,
           })
         );
       }
     });
 
-    Animated.stagger(50, animations).start(() => {
+    Animated.stagger(10, animations).start(() => {
       setDigits(newDigits);
 
       // Animate in the updated digits
       const fadeInAnimations = newDigits.map((_, index) =>
         Animated.timing(animationRefs[index], {
           toValue: 1,
-          duration: 200,
+          duration: 100,
           useNativeDriver: true,
         })
       );
