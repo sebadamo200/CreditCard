@@ -22,8 +22,10 @@ const renderCardNumberWithSpaces = (text) => {
   }
   for (let index = 0; index < (amexExp ? 15 : 16); index++) {    
     cardArray.push(text[index] || '#');
+    // render with spaces if it's not an amex card then add space every 4 digits
+    // if amex then add space after 4th and 10th digit
     if ((amexExp && (index === 3 || index === 9)) || (!amexExp && index % 4 === 3 && index < 15)) {
-      cardArray.push('');
+      cardArray.push(' '); // added space
     }
   }
 

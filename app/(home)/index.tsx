@@ -22,6 +22,8 @@ import CreditCardComponentBack from '../components/CrediCardComponentBack';
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
+const today =  new Date();
+const fullYear = today.getFullYear();
 
 const dataMonths = () => {
   let months = [];
@@ -30,14 +32,11 @@ const dataMonths = () => {
   }
   return months;
 }
-
+// 10 years from now
 const dataYears = () => {
   let years = [];
   for (let index = 0; index < 10; index++) {
-    years.push({label: '202'+index, value: '202'+index});
-  }
-  for (let index = 0; index < 10; index++) {
-    years.push({label: '203'+index, value: '203'+index});
+    years.push({label: ''+(fullYear + index), value: ''+(fullYear + index)});
   }
   return years;
 };
